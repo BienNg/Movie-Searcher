@@ -3,19 +3,20 @@ import './App.css';
 import MovieRow from './MovieRow.js'
 import $ from 'jquery'
 import OwlCarousel from 'react-owl-carousel2';
+import MainContent from './components/MainContent';
 
 
 class App extends Component {
 
-  constructor(){
+  constructor() {
     super()
-    console.log("Constructor called.")
-
-    this.state = {}
+    var mainRows = []
+    mainRows.push(<MainContent/>)
+    this.state = {rows: mainRows}
   }
 
 
-  performSearch(searchTerm){
+  performSearch(searchTerm) {
     console.log("Perform Search startded.")
 
     const URL = "https://api.themoviedb.org/3/search/movie?api_key=c9fa182d1bdc69a05cdaf873e0216d82&query=" + searchTerm
@@ -24,29 +25,41 @@ class App extends Component {
       url: URL,
       success: (searchResults) => {
         console.log("Data fetched!")
-        
+
         var movieRows = []
 
         const results = searchResults.results
         results.forEach((movie) => {
-          movieRows.push(<MovieRow key={movie.id} movie = {movie}/>)
+          movieRows.push(<MovieRow key={movie.id} movie={movie} />)
         })
 
-        this.setState({rows: movieRows})
+        this.setState({ rows: movieRows })
       },
       error: (xhr, status, err) => {
         console.error("Fetching failed.")
       }
     })
-    
+
   }
 
-  searchHandler(event){
+  /** Generating Main Page Content and add it to current state to show it. */
+  showMainContent(){
+    console.log("ShowMainContent called.")
+    var mainRows = []
+    mainRows.push(<MainContent/>)
+    this.setState({rows: mainRows})
+  }
+
+  searchHandler(event) {
     const searchTerm = event.target.value
-    this.performSearch(searchTerm)
+    if(searchTerm !== ""){
+      this.performSearch(searchTerm)
+    }else{
+      this.showMainContent()
+    }
   }
 
-  logoListener(event){
+  logoListener(event) {
     console.log("Logo clicked.")
     window.open("https://www.themoviedb.org/")
   }
@@ -58,7 +71,7 @@ class App extends Component {
           <tbody>
             <tr>
               <td>
-                <img className="appIcon" alt="App Icon" width="70" src = "movie_db_icon.png" onClick={() => this.logoListener()} />
+                <img className="appIcon" alt="App Icon" width="70" src="movie_db_icon.png" onClick={() => this.logoListener()} />
               </td>
               <td width="8">
               </td>
@@ -67,10 +80,9 @@ class App extends Component {
               </td>
             </tr>
           </tbody>
-        </table>  
-      <input className="inputSearch" placeholder="Enter Search..." onChange={this.searchHandler.bind(this)}/>
-
-      {this.state.rows}
+        </table>
+        <input className="inputSearch" placeholder="Enter Search..." onChange={this.searchHandler.bind(this)} />
+        {this.state.rows}
       </div>
     );
   }
