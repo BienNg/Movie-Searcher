@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import MovieRow from './MovieRow.js'
 import $ from 'jquery'
+import OwlCarousel from 'react-owl-carousel2';
+
 
 class App extends Component {
 
@@ -10,20 +12,6 @@ class App extends Component {
     console.log("Constructor called.")
 
     this.state = {}
-    /* const movies = [
-      {id: 0, title: "Avengers: Infinity War", poster_path:  "https://image.tmdb.org/t/p/w185_and_h278_bestv2/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",overview: "Die zerstrittenen Avengers sehen sich der größten Bedrohung ausgesetzt, die sie jemals erlebt haben. Sie müssen es mit dem Titanen Thanos aufnehmen, der mithilfe der Infinity-Steine die gesamte Galaxie unterjochen will."},
-      {id: 1, title: "Marvel's the Avengers", poster_path: "https://image.tmdb.org/t/p/w185_and_h278_bestv2/ifdNNg3rpOgitwSpgeLOu1HY6r7.jpg", overview: "Nick Fury ist der Anführer der Organisation S.H.I.E.L.D., einer internationalen Friedensorganisation."}
-    ]
-
-    var movieRows = []
-
-    movies.forEach((movie) => {
-      const movieRow = <MovieRow movie={movie}/>
-
-      movieRows.push(movieRow)
-    })
-
-    this.state = {rows: movieRows} */
   }
 
 
@@ -58,6 +46,11 @@ class App extends Component {
     this.performSearch(searchTerm)
   }
 
+  logoListener(event){
+    console.log("Logo clicked.")
+    window.open("https://www.themoviedb.org/")
+  }
+
   render() {
     return (
       <div>
@@ -65,7 +58,7 @@ class App extends Component {
           <tbody>
             <tr>
               <td>
-                <img alt="App Icon" width="70" src = "movie_db_icon.png"/>
+                <img className="appIcon" alt="App Icon" width="70" src = "movie_db_icon.png" onClick={() => this.logoListener()} />
               </td>
               <td width="8">
               </td>
@@ -75,8 +68,6 @@ class App extends Component {
             </tr>
           </tbody>
         </table>  
-
-
       <input className="inputSearch" placeholder="Enter Search..." onChange={this.searchHandler.bind(this)}/>
 
       {this.state.rows}

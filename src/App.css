@@ -14,6 +14,11 @@
   padding-left: 16px
 }
 
+.appIcon:hover{
+  cursor: pointer;
+}
+
+
 
 .App {
   text-align: center;
