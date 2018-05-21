@@ -6,6 +6,7 @@
     "jquery": "^3.3.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
+    "react-owl-carousel": "^2.3.1",
     "react-owl-carousel2": "^0.3.0",
     "react-scripts": "1.1.4"
   },

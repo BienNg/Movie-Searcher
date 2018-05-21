@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import MovieRow from './MovieRow.js'
 import $ from 'jquery'
-import OwlCarousel from 'react-owl-carousel2';
 import MainContent from './components/MainContent';
 
 
